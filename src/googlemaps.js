@@ -1,15 +1,15 @@
 (function (global) {
     "use strict";
-    
+
     // -------------------------------------------------------------------------
     // [Constructor]
     // -------------------------------------------------------------------------
-    
+
     function Map (placeHolder) {
         var self = this;
-        
+
         this.marker_theme = (function () {
-        	var google_dir = "http://www.google.com/intl/en_us/mapfiles/ms/micons/";
+        	var google_dir = "https://www.google.com/intl/en_us/mapfiles/ms/micons/";
         	return {
                 "google_red": google_dir + "red-dot.png",
                 "google_blue": google_dir + "blue-dot.png",
@@ -45,14 +45,14 @@
     // -------------------------------------------------------------------------
     // [Setters / Getters]
     // -------------------------------------------------------------------------
-    
+
     Map.prototype.setCenter = function (coordinates) {
         var lat = String(coordinates.latitude);
         var lng = String(coordinates.longitude);
         var point = new google.maps.LatLng(lat, lng);
         this.map.setCenter(point);
     };
-    
+
     Map.prototype.setZoom = function (zoom) {
         this.map.setZoom(zoom);
     };
@@ -62,8 +62,8 @@
             return false;
         }
         navigator.geolocation.getCurrentPosition(function (position) {
-            var latitude = position.coords.latitude, 
-                longitude = position.coords.longitude, 
+            var latitude = position.coords.latitude,
+                longitude = position.coords.longitude,
                 point = new google.maps.LatLng(latitude, longitude);
 
             googlelibapi.addMarker(point, true);
@@ -73,10 +73,10 @@
     // -------------------------------------------------------------------------
     // [Modifiers]
     // -------------------------------------------------------------------------
-    
+
     Map.prototype.addMarker = function (coordinates, theme) {
         theme = theme || "google_blue";
-        
+
         var self = this,
             lat = coordinates.latitude,
             lng = coordinates.longitude,
@@ -99,7 +99,7 @@
             coordinates = "<strong>Współrzędne:</strong><br/>";
             coordinates += "<br/>Szerokość: " + point.latitude;
             coordinates += "<br/>Długość: " + point.longitude;
-            
+
             var infowin = new google.maps.InfoWindow();
             infowin.setContent(coordinates);
             infowin.open(self.map, marker);
@@ -143,7 +143,7 @@
         this.circles.push(circle);
         circle.setMap(self.map)
     };
-    
+
     Map.prototype.clearCircles = function () {
         var iterator,
             length = this.circles.length;
@@ -152,7 +152,7 @@
         }
         this.circles.length = 0;
     };
-    
+
     // -------------------------------------------------------------------------
     // [Event Handler]
     // -------------------------------------------------------------------------
